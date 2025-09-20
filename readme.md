@@ -110,6 +110,6 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 ## Author
 
-**\[Nada]** – First Python project showcasing modular CLI design, inventory management, and user interaction.
+**[Nada-TB](https://github.com/Nada-TB)** – First Python project showcasing modular CLI design, inventory management, and user interaction.
 
 ---
