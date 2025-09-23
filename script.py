@@ -1,7 +1,7 @@
 import json
 import time 
 import sys
-from ui import messages, message_like_typing, message
+from ui import messages, message_like_typing, fetch_message
 from utils import sanitize_input_name, welcome_display, new_user_display, existing_user_display, sanitize_input_item
 from inventory import inventory, check_item_in_inventory, check_item_quantity
 from purchases import users_purchases, update_user_purchases, convert_user_purchases_to_string
