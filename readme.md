@@ -1,6 +1,7 @@
+
 # Store Management CLI
 
-A command-line interface (CLI) application for managing user purchases and inventory. This project simulates a small store workflow where users can check their purchase history, buy items, and track inventory. Built in Python as a learning project with modular design.
+A Python-based command-line interface (CLI) application for managing user purchases and inventory. This project simulates a small store workflow where users can check their purchase history, buy items, and track inventory. Designed with modularity, clean error handling, and Pythonic patterns.
 
 ---
 
@@ -27,6 +28,7 @@ A command-line interface (CLI) application for managing user purchases and inven
 * **Interactive CLI Experience**
 
   * Friendly prompts and messages
+  * Input validation with custom exceptions
   * Typing simulation effects for improved UX
 
 ---
@@ -36,12 +38,17 @@ A command-line interface (CLI) application for managing user purchases and inven
 ```
 store-management-cli/
 │
-├── script.py                  # Main CLI script
-├── ui.py                      # User interface utilities (messages, typing effects)
-├── utils.py                   # Input sanitization and helper functions
-├── inventory.py               # Inventory data and checks
-├── purchases.py               # User purchase tracking and functions
-└── README.md                  # Project documentation
+├── main.py                     # Main CLI script, orchestrates flow
+├── dispatcher.py               # Dispatches choices to handlers
+├── handlers.py                 # Functions for handling user actions
+├── ui.py                       # User interface utilities (messages, typing effects)
+├── utils.py                    # Input sanitization and reusable helper functions
+├── inventory.py                # Inventory data and checks
+├── purchases.py                # User purchase tracking and functions
+├── exceptions.py               # Custom exceptions for validation
+├── inventory.json              # Inventory data storage
+├── users_purchases.json        # User purchase data storage
+└── README.md                   # Project documentation
 ```
 
 ---
@@ -50,55 +57,68 @@ store-management-cli/
 
 ### Prerequisites
 
-* Python 3.10+ (required for `match/case` statements)
+* Python 3.10+
 
 ### Installation
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/yourusername/store-management-cli.git
-   ```
+```bash
+git clone https://github.com/Nada-TB/Store-Management-CLI.git
+```
+
 2. Navigate into the project folder:
 
-   ```bash
-   cd store-management-cli
-   ```
+```bash
+cd Store-Management-CLI
+```
+
 3. Run the CLI application:
 
-   ```bash
-   python script.py
-   ```
+```bash
+python main.py
+```
 
 ---
 
 ## Usage
 
-1. Launch the program with `python script.py`.
+1. Launch the program with `python main.py`.
 
 2. Choose an option from the menu:
 
-   * **1**: Fetch user purchases
-   * **2**: Start a purchase
-   * **3**: Exit the store
+* **1**: Fetch user purchases
+* **2**: Start a purchase
+* **3**: Exit the store
 
 3. Follow the interactive prompts for each workflow.
+
+4. Continue shopping by typing `yes` when prompted, or `no` to finish.
+
+---
+
+## Input Handling Improvements
+
+* **Custom Exception Handling**: The CLI now uses custom exceptions (`ChoiceInvalidError`, `EmptyNameError`, `IsNotAlphaError`, `EmptyItemError`, `ItemQuantityError`) to handle invalid inputs gracefully.
+* **Reusable Helper `get_valid_input()`**: A generic function ensures inputs like item name and quantity are repeatedly requested until valid, reducing code repetition.
+* **Boolean Conversion for Yes/No**: User confirmation inputs are directly converted to boolean (`continue_shopping = answer == "yes"`) for clean loop control.
+* **Centralized Loop Control**: The main loop handles choice selection, user context, and purchase flow without scattering `sys.exit()` calls throughout the code.
 
 ---
 
 ## Notes
 
-* Data is stored **in memory**, so purchases and inventory are reset on each run.
-* Designed as a **learning project** to demonstrate modular Python coding, CLI interaction, and basic problem-solving.
+* Data is stored **in JSON files**, making it persistent between runs.
+* Designed as a **learning project** demonstrating modular Python code, CLI interaction, and clean input handling.
 
 ---
 
 ## Future Improvements
 
-* Persist data to JSON or a database
-* Add error handling for invalid numeric input
-* Refactor for more Pythonic patterns (comprehensions, context managers)
-* Add unit tests for core functions
+* Extend `get_valid_input()` to handle multiple exception types with custom messages per exception.
+* Implement unit tests for all core functions.
+* Add more Pythonic patterns (comprehensions, context managers) where applicable.
+* Consider database integration for scalable inventory and user data.
 
 ---
 
