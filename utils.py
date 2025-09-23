@@ -1,5 +1,6 @@
 from ui import messages, fetch_message
 from exceptions import ChoiceInvalidError, EmptyNameError, IsNotAlphaError, EmptyItemError, ItemQuantityError
+import sys 
 
 choices=("1","2","3")
 
@@ -28,7 +29,7 @@ def get_name_input(prompt):
 def get_input_item (prompt):
     fetch_message(prompt, space_after="")
     item= sanitize_input_item(input())
-    if item =="":
+    if not item:
         raise EmptyItemError
     return item 
 
@@ -43,24 +44,18 @@ def welcome_message_display():
     lines=messages['welcome'].rsplit("\n")
     for line in lines:
         fetch_message(line)
-   
-'''''
-def new_user_options_display():
-    messages=[
-        messages['choose_action_question'],
-        messages['make_purchase'],
-        messages['exit'],
-        messages['choose_action']
-    ]
-    for message in messages :
-        fetch_message(message) 
+
+def get_valid_input(prompt, validation_function, error_messages):
+    while True : 
+        try:
+            input_value=validation_function(prompt)
+            break
+        except tuple(error_messages.keys()) as e:   
+            fetch_message(messages[type(e)])
+    return input_value
+
+def handle_exit():
+    fetch_message("thank you for visiting our store")
+    sys.exit(0)
    
 
-def existing_user_options_display():
-    fetch_message(messages['choose_action_question'])
-    fetch_message(messages['show_purchases'])
-    fetch_message(messages['make_purchase'])
-    fetch_message(messages['exit'])
-    fetch_message(messages['choose_action'])
-   
-'''

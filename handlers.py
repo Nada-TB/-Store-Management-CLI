@@ -1,4 +1,4 @@
-from ui import messages, fetch_message
+from ui import fetch_message
 from purchases import users_purchases, convert_user_purchases_to_string, update_user_purchases
 from inventory import check_item_in_inventory,inventory, check_item_quantity
 import sys
@@ -21,13 +21,10 @@ def handle_make_purchase(context):
     if(item_status):
          status,quantity_left=check_item_quantity(context.get('item_name'), context.get('item_quantity'), inventory) 
          if status :
-            update_user_purchases(context.get('user_name'),context.get('item_name'),context.get('item_quantity'), inventory)
-            fetch_message("you have purchased successfully \n ")
+            update_user_purchases(context.get('user_name'),context.get('item_name'),context.get('item_quantity'), users_purchases)
+            fetch_message("you have purchased successfully \nDo you want to add more items ? (yes/no) : ")
          else:
-            fetch_message(f"we don't have enough quantity for this item \nThe available quantity is : {str(quantity_left)} \n Do you want to add more items ? (yes/no) :")
+            fetch_message(f"we don't have enough quantity for this item \nThe available quantity is : {str(quantity_left)} \n Do you want to continue shopping ? (yes/no) : ")
     else:
-        fetch_message("Sorry, the item you entered is not available in our store.\n")
+        fetch_message("Sorry, the item you entered is not available in our store.\nDo you want to continue shopping ? (yes/no) : ")
 
-def handle_exit(context):
-    fetch_message("thank you for visiting our store")
-    sys.exit(0)

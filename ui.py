@@ -24,15 +24,26 @@ messages={
         "3. Exit the program"
     ),
 
-    'final_action': (
+    'action_after_finishing_purchase': (
         "You have finished shopping. What would you like to do next?\n"
         "1 - Show my purchases\n"
-        "2 - Exit\n"
+        "3 - Exit\n"
+    ),
+    'action_after_showing_purchases': (
+        "What would you like to do next?\n"
+        "2. make new purchase\n"
+        "3. Exit the program"
+    ),
+    'choices':(
+        "What would you like to do next?\n"
+        "1. show all purchases \n"
+        "2. make new purchase\n"
+        "3. Exit the program"
     )
 
 }
 
-def message_like_typing(message, time_per_char=0.1, file=None):
+def message_like_typing(message, time_per_char=0.05, file=None):
     if file is None:
         file = sys.stdout
     for char in message:
